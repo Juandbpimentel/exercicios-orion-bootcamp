@@ -4,7 +4,7 @@ services:
     container_name: db-03
     env_file: .postgres.env
     volumes:
-      - ./db_data:/var/lib/postgresql/data
+      - ./db_data:/var/lib/postgresql
       - ./db_init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
@@ -36,9 +36,9 @@ services:
     ports:
       - 8080:8080
     networks:
-      - exercicio-02
+      - exercicio-03
 
 networks:
-  exercicio-02:
-    name: exercicio-02
+  exercicio-03:
+    name: exercicio-03
     driver: bridge
