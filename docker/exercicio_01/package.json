@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "dev": "node --watch index.js",
+        "start":"node index.js"
+    },
+    "name": "exercicio_01",
+    "version": "1.0.0",
+    "description": "Hello World project exercicio 01",
+    "main": "index.js",
+    "author": "Juan Pimentel",
+    "license": "ISC"
+}
