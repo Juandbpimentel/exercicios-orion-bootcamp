@@ -54,9 +54,9 @@ project/
 ```
 
 ## O que será avaliado
-Organização e estrutura do projeto
-Uso correto de variáveis de ambiente e `.env`
-Uso de volumes e networks nomeadas
-Configuração de dependências (`depends_on`, `healthcheck`)
-Imagem leve e Dockerfile otimizado
-Funcionamento geral da stack (`docker compose up -d`)
+- Organização e estrutura do projeto
+- Uso correto de variáveis de ambiente e `.env`
+- Uso de volumes e networks nomeadas
+- Configuração de dependências (`depends_on`, `healthcheck`)
+- Imagem leve e Dockerfile otimizado
+- Funcionamento geral da stack (`docker compose up -d`)
