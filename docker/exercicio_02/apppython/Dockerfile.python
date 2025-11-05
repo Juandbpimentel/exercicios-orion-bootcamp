@@ -1,0 +1,20 @@
+FROM python:3.13-alpine
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+# instalar dependências de build e libpq (pg_config), instalar deps Python e remover build deps para reduzir imagem por conta do psycopg2
+RUN apk add --no-cache --virtual .build-deps \
+      build-base \
+      postgresql-dev \
+      python3-dev \
+      linux-headers && \
+    pip install --no-cache-dir -r requirements.txt && \
+    apk del .build-deps
+
+COPY . .
+
+EXPOSE 8000
+
+CMD [ "python","-u","main.py" ]
