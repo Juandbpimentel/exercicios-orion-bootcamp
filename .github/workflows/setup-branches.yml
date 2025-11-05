@@ -1,0 +1,74 @@
+name: Setup Repository Branches
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "yes" to confirm branch creation'
+        required: true
+        default: 'no'
+
+jobs:
+  create-branches:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'yes'
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Create and push branches
+        run: |
+          echo "Creating auxiliary branches..."
+          
+          # Ensure we're on main or fetch it
+          git fetch origin main || true
+          git checkout main || git checkout -b main origin/main || true
+          
+          # Create dev branch
+          if ! git ls-remote --heads origin dev | grep -q "refs/heads/dev$"; then
+            echo "Creating dev branch..."
+            git checkout -b dev main
+            git push origin dev
+            git checkout main
+          else
+            echo "Branch dev already exists"
+          fi
+          
+          # Create stage branch
+          if ! git ls-remote --heads origin stage | grep -q "refs/heads/stage$"; then
+            echo "Creating stage branch..."
+            git checkout -b stage main
+            git push origin stage
+            git checkout main
+          else
+            echo "Branch stage already exists"
+          fi
+          
+          # Create production branch
+          if ! git ls-remote --heads origin production | grep -q "refs/heads/production$"; then
+            echo "Creating production branch..."
+            git checkout -b production main
+            git push origin production
+            git checkout main
+          else
+            echo "Branch production already exists"
+          fi
+          
+          echo "Branch setup completed!"
+      
+      - name: List all branches
+        run: |
+          echo "Remote branches:"
+          git branch -r
