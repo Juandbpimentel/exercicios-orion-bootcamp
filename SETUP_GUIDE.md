@@ -17,16 +17,24 @@ As seguintes branches foram criadas localmente a partir da branch `main`:
 
 ### Próximo Passo: Enviar para o Remoto
 
-Para enviar as branches criadas para o repositório remoto, execute:
+Existem três formas de criar as branches no repositório remoto:
 
-```bash
-git push origin dev stage production
-```
+#### Opção 1: GitHub Actions (Recomendado)
+1. Vá para a aba "Actions" no GitHub
+2. Selecione o workflow "Setup Repository Branches"
+3. Clique em "Run workflow"
+4. Digite "yes" no campo de confirmação
+5. Clique em "Run workflow"
 
-Ou use o script de configuração:
-
+#### Opção 2: Script de Configuração
+Execute o script fornecido:
 ```bash
 ./setup-branches.sh
+```
+
+#### Opção 3: Comandos Git Manuais
+```bash
+git push origin dev stage production
 ```
 
 ## Verificação
