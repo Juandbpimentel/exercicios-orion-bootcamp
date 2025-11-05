@@ -34,7 +34,7 @@ jobs:
           git checkout main || git checkout -b main origin/main || true
           
           # Create dev branch
-          if ! git ls-remote --heads origin dev | grep dev; then
+          if ! git ls-remote --heads origin dev | grep -q "refs/heads/dev$"; then
             echo "Creating dev branch..."
             git checkout -b dev main
             git push origin dev
@@ -44,7 +44,7 @@ jobs:
           fi
           
           # Create stage branch
-          if ! git ls-remote --heads origin stage | grep stage; then
+          if ! git ls-remote --heads origin stage | grep -q "refs/heads/stage$"; then
             echo "Creating stage branch..."
             git checkout -b stage main
             git push origin stage
@@ -54,7 +54,7 @@ jobs:
           fi
           
           # Create production branch
-          if ! git ls-remote --heads origin production | grep production; then
+          if ! git ls-remote --heads origin production | grep -q "refs/heads/production$"; then
             echo "Creating production branch..."
             git checkout -b production main
             git push origin production

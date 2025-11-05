@@ -29,7 +29,7 @@ git branch
 # Enviar branches para o remoto
 echo ""
 echo "Enviando branches para o repositório remoto..."
-git push origin main dev stage production
+git push origin dev stage production
 
 echo ""
 echo "✓ Configuração de branches concluída!"
