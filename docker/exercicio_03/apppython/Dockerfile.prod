@@ -1,0 +1,23 @@
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+# instalar deps de build para compilar psycopg2, instalar deps python e depois remover build deps.
+# reinstala libpq runtime (libpq5) para garantir runtime disponível.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential libpq-dev python3-dev && \
+    pip install --no-cache-dir -r requirements.txt && \
+    apt-get remove -y --purge build-essential python3-dev libpq-dev && \
+    apt-get install -y --no-install-recommends libpq5 && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY . .
+
+ENV PYTHONUNBUFFERED=1
+EXPOSE 8000
+
+# produção: uvicorn sem reload e com múltiplos workers
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
