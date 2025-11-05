@@ -1,11 +1,14 @@
 # 💼️ Exercício 2 — Compose com API + Banco de Dados
 
-## Objetivo:
+## Objetivo
+
 Aprender a conectar múltiplos containers (API + DB) usando docker-compose e variáveis de
 ambiente.
 
-## Descrição:
+## Descrição
+
 Monte uma stack com dois serviços:
+
 1. api
     - Build via Dockerfile (igual ao exercício anterior).
     - Usa variáveis de ambiente (DB_HOST, DB_USER, DB_PASS).
@@ -15,11 +18,13 @@ Monte uma stack com dois serviços:
    - Configure um volume para persistência.
    - Variáveis de ambiente no docker-compose.yml (ex: POSTGRES_PASSWORD,POSTGRES_DB).
 
-## Critérios de sucesso:
+## Critérios de sucesso
+
 - docker compose up cria rede interna e os serviços se comunicam.
 - A API consegue se conectar e gravar dados no banco.
 - O volume persiste os dados mesmo após docker compose down.
 
-## Extras (avançado):
+## Extras (avançado)
+
 - Usar um arquivo .env externo para variáveis sensíveis.
 - Testar dependência (depends_on).
