@@ -19,5 +19,8 @@ main (principal)
 └── production (produção)
 ```
 
+## Políticas de proteção
+- `main`: Proteção contra push, é obrigatório fazer um PR para enviar as as alterações.
+
 ## Notas
 Todas as branches auxiliares foram criadas a partir da branch `main`.

@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres
+    container_name: db-02
+    env_file: .postgres.env
+    volumes:
+      - ./db_data:/var/lib/postgresql
+      - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - exercicio-02
+
+  app-python:
+    build:
+      context: ./apppython/
+      dockerfile: ./Dockerfile.python
+    container_name: app-python-02
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apppython/main.py:/app/main.py
+      - ./apppython/classes.py:/app/classes.py
+      - ./apppython/database.py:/app/database.py
+    networks:
+      - exercicio-02
+    env_file: ./apppython/.pythonapp.env
+    depends_on:
+      - db
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - exercicio-02
+
+networks:
+  exercicio-02:
+    name: exercicio-02
+    driver: bridge

@@ -2,12 +2,10 @@
 Neste repositório estarei desenvolvendo as atividades relacionadas com o Orion Bootcamp
 
 ## Estrutura de Branches
+Para informações sobre a estrutura de branches, consulte [BRANCHES.md](BRANCHES.md).
 
-Este repositório utiliza as seguintes branches:
+## Exercícios
+Para organizar os exercícios feitos nos programas, utilizarei subpastas que representam cada uma das atividades e colocarei aqui abaixo.
 
-- **main** - Branch principal do repositório
-- **dev** - Branch de desenvolvimento
-- **stage** - Branch de homologação/staging  
-- **production** - Branch de produção
-
-Para mais informações sobre a estrutura de branches, consulte [BRANCHES.md](BRANCHES.md).
+### 01 - Dockerização - [Link](docker/EXERCICIOS_DOCKER.md)
+Atividades para o aprendizado de como dockerizar serviços, fazer o gerenciamento de saúde, utilizar variáveis de ambiente e orquestra-los para a comunicação mútua.

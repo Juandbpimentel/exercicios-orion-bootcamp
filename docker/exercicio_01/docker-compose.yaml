@@ -1,0 +1,29 @@
+networks:
+  exercicio-01:
+    name: exercicio-01
+    driver: bridge
+services:
+  app-node:
+    build:
+      context: ./ 
+      dockerfile: ./Dockerfile.node
+    container_name: app-node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./index.js:/app/index.js
+      - ./package.json:/app/package.json
+    networks:
+      - exercicio-01
+  app-python:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.python
+    container_name: app-python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./main.py:/app/main.py
+    networks:
+      - exercicio-01
+    

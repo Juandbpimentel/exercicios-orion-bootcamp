@@ -1,0 +1,4 @@
+db_data/
+.postgres.env
+apppython/__pycache__/
+apppython/.pythonapp.env
