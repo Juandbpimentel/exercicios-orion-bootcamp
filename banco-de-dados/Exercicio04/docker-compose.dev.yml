@@ -1,0 +1,27 @@
+services:
+  db_mongo_dev:
+    image: mongo:latest
+    container_name: orion_mongo_dev
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: orion_admin
+      MONGO_INITDB_ROOT_PASSWORD: orion_admin_pass
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./mongo_dev_data:/data/db
+      - ./init_mongodb.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - orion_dev_network
+
+volumes:
+  mongo_dev_data:
+    driver: local
+
+networks:
+  orion_dev_network:
+    driver: bridge
