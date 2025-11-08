@@ -1,0 +1,23 @@
+services:
+  db_mongo_prod:
+    image: mongo:latest
+    container_name: orion_mongo_prod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: orion_admin_prod
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PROD_PASS:-orion_admin_pass_prod}
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init_mongodb.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - orion_prod_network
+
+networks:
+  orion_prod_network:
+    driver: bridge

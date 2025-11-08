@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:alpine
+    container_name: db-desafio-prod
+    env_file: .postgres.env
+    volumes:
+      - db_data:/var/lib/postgresql
+      - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - desafio-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app-python:
+    build:
+      context: ./apppython
+      dockerfile: Dockerfile.prod
+    container_name: app-python-desafio-prod
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./apppython/.pythonapp.env.prod
+    environment:
+      - PYTHON_ENV=production
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - desafio-network
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: adminer-desafio-prod
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - desafio-network
+
+volumes:
+  db_data:
+    name: desafio-db-data-prod
+
+networks:
+  desafio-network:
+    name: desafio-network-prod
+    driver: bridge
